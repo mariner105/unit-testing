@@ -1,51 +1,39 @@
 package com.mariner105.unittesting.unittesting.business;
 
-import com.mariner105.unittesting.unittesting.controller.ItemController;
+import com.mariner105.unittesting.unittesting.data.ItemRepository;
 import com.mariner105.unittesting.unittesting.model.Item;
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(ItemController.class)
+@ExtendWith(MockitoExtension.class)
 class ItemBusinessServiceTest {
 
     public static final String EXPECTED_JSON = "{id:2,name: Item2, price:10, quantity:10}";
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockBean
+    @InjectMocks
     private ItemBusinessService businessService;
 
+    @Mock
+    private ItemRepository repository;
+
     @Test
-    public void itemFromBusinessService() throws Exception {
-        when(businessService.retreiveHardCodedItem()).thenReturn(
-                new Item(2, "Item2", 10, 10));
-
-        //call "/item-from-business-service"
-        RequestBuilder request = MockMvcRequestBuilders
-                .get("/item-from-business-service")
-                .accept(MediaType.APPLICATION_JSON);
-        mockMvc.perform(request);
-
-        //verify that the response contains the expected JSON
-        MvcResult result = mockMvc.perform(request)
-                .andExpect(status().isOk())
-                .andExpect(content().json(EXPECTED_JSON))
-                .andReturn();
-
-        JSONAssert.assertEquals(EXPECTED_JSON, result.getResponse().getContentAsString(), false);
-
+    public void calculateSumUsingDataService() throws Exception {
+        when(repository.findAll()).thenReturn(
+                Arrays.asList(
+                        new Item(2, "Item2", 10, 10),
+                        new Item(3, "Item3", 20, 20)));
+        List<Item> items = businessService.retrieveAllItems();
+        assertEquals(100, items.get(0).getValue());
+        assertEquals(400, items.get(1).getValue());
     }
+
 }
