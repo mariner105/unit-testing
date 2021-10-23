@@ -15,7 +15,7 @@ class SomeBusinessImplTest {
     private SomeDataService dataServiceMock;
 
     @BeforeEach
-    public void beforeEach() {
+    public void before() {
         dataServiceMock = mock(SomeDataService.class);
     }
 
@@ -24,27 +24,21 @@ class SomeBusinessImplTest {
 
         SomeBusinessImpl business = new SomeBusinessImpl();
         when(dataServiceMock.retrieveAllData()).thenReturn(new int[] {1,2,3});
-        int actualResult = business.calculateSum(dataServiceMock.retrieveAllData());
-        int expectedResult = 6;
-        assertEquals(expectedResult, actualResult);
+        assertEquals(6, business.calculateSum(dataServiceMock.retrieveAllData()));
     }
 
     @Test
     public void calculateSum_empty() {
         SomeBusinessImpl business = new SomeBusinessImpl();
         when(dataServiceMock.retrieveAllData()).thenReturn(new int[] { });
-        int actualResult = business.calculateSum(dataServiceMock.retrieveAllData());
-        int expectedResult = 0;
-        assertEquals(expectedResult, actualResult);
+        assertEquals(0, business.calculateSum(dataServiceMock.retrieveAllData()));
     }
 
     @Test
     public void calculateSum_oneValue() {
         SomeBusinessImpl business = new SomeBusinessImpl();
         when(dataServiceMock.retrieveAllData()).thenReturn(new int[] { 5 });
-        int actualResult = business.calculateSum(dataServiceMock.retrieveAllData());
-        int expectedResult = 5;
-        assertEquals(expectedResult, actualResult);
+        assertEquals(5, business.calculateSum(dataServiceMock.retrieveAllData()));
     }
 
 }
