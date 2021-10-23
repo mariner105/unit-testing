@@ -6,6 +6,7 @@ public class SomeBusinessImpl {
 
     private  SomeDataService dataService;
 
+    //This method is here so that we can inject the mock
     public void setDataService(SomeDataService dataService) {
         this.dataService = dataService;
     }
