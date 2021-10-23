@@ -1,12 +1,13 @@
 package com.mariner105.unittesting.unittesting.spike;
 
+import com.mariner105.unittesting.unittesting.business.ItemBusinessService;
 import com.mariner105.unittesting.unittesting.controller.ItemController;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
-@WebMvcTest(ItemController.class)
+@WebMvcTest({ItemController.class, ItemBusinessService.class})
 public class JsonAssertTest {
 
     public static final String ACTUAL_RESPONSE = "{\"id\":1,\"name\":\"Ball\",\"price\":10,\"quantity\":100}";

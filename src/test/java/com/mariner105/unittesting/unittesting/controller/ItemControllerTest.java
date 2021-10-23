@@ -1,5 +1,6 @@
 package com.mariner105.unittesting.unittesting.controller;
 
+import com.mariner105.unittesting.unittesting.business.ItemBusinessService;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(ItemController.class)
+@WebMvcTest({ItemController.class, ItemBusinessService.class})
 class ItemControllerTest {
 
     public static final String EXPECTED_JSON = "{\"id\":1,\"name\":\"Ball\",\"price\":10,\"quantity\":100}";
