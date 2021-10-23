@@ -1,6 +1,7 @@
 package com.mariner105.unittesting.unittesting.business;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import static org.mockito.Mockito.*;
 public class ListMockTest {
 
     public static final String MARINER_105 = "mariner105";
+    public static final String SOME_STRING = "SomeString";
     List<String> mock = mock(List.class);
 
     @Test
@@ -58,6 +60,18 @@ public class ListMockTest {
         verify(mock, atMost(2)).get(anyInt());
         verify(mock, never()).get(2);
 
+    }
+
+    @Test
+    public void argumentCapturing() {
+        //System under test
+        mock.add(SOME_STRING);
+
+        //Verification
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(mock).add(captor.capture());
+
+        assertEquals(SOME_STRING, captor.getValue());
     }
 
 }
