@@ -17,6 +17,10 @@ public class SomeBusinessImpl {
         for (int value : data) {
             sum += value;
         }
+
+        // If the following was a real method call then we could use verify tests to check that it was executed as
+        // expected
+        // someDataService.storeSum(sum);
         return sum;
     }
 
