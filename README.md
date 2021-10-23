@@ -22,3 +22,11 @@ Why do we need to configure bootstrap-mode? Details here
 - https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.3-Release-Notes#bootstrapmode-for-jpa-repositories
 
 
+==================
+
+
+(If you are using JUnit 5) In the next lecture, You do NOT need to add
+
+@RunWith(SpringRunner.class) on top of
+
+@DataJpaTest
