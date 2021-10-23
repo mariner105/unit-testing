@@ -3,11 +3,11 @@ package com.mariner105.unittesting.unittesting.business;
 import com.mariner105.unittesting.unittesting.data.ItemRepository;
 import com.mariner105.unittesting.unittesting.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
+@Component
 public class ItemBusinessService {
 
     @Autowired
@@ -24,6 +24,6 @@ public class ItemBusinessService {
             item.setValue(item.getPrice() * item.getQuantity());
         }
 
-        return repository.findAll();
+        return items;
     }
 }
