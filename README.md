@@ -30,3 +30,13 @@ Why do we need to configure bootstrap-mode? Details here
 @RunWith(SpringRunner.class) on top of
 
 @DataJpaTest
+
+
+==================
+
+
+(If you are using JUnit 5) In the next lecture, You do NOT need to add
+
+@RunWith(SpringRunner.class) on top of
+
+@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
