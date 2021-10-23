@@ -2,6 +2,7 @@ package com.mariner105.unittesting.unittesting.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -15,6 +16,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(ItemController.class)
 class ItemControllerTest {
+
+    public static final String EXPECTED_JSON = "{\"id\":1,\"name\":\"Ball\",\"price\":10,\"quantity\":100}";
 
     @Autowired
     private MockMvc mockMvc;
@@ -34,11 +37,10 @@ class ItemControllerTest {
         //verify that the response contains the expected JSON
         MvcResult result = mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\"id\":1,\"name\":\"Ball\",\"price\":10,\"quantity\":100}"))
+                .andExpect(content().json(EXPECTED_JSON))
                 .andReturn();
 
-        //We don't need this  assertion now that we have added the andExpect calls above
-        //assertEquals("Hello World", result.getResponse().getContentAsString());
+        JSONAssert.assertEquals(EXPECTED_JSON, result.getResponse().getContentAsString(), false);
 
     }
 }
