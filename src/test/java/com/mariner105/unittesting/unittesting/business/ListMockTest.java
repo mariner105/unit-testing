@@ -3,6 +3,7 @@ package com.mariner105.unittesting.unittesting.business;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -88,6 +89,39 @@ public class ListMockTest {
         List<String> allValues = captor.getAllValues();
         assertEquals(SOME_STRING, allValues.get(0));
         assertEquals(SOME_STRING_2, allValues.get(1));
+    }
+
+    @Test
+    public void mocking() {
+        //A mock by default does not retain the behavior of the original class
+        ArrayList arrayListMock = mock(ArrayList.class);
+        System.out.println(arrayListMock.get(0)); //null
+        System.out.println(arrayListMock.size()); //0
+        arrayListMock.add("Test");
+        arrayListMock.add("Test2");
+        System.out.println(arrayListMock.size()); //0
+        when(arrayListMock.size()).thenReturn(5);
+        System.out.println(arrayListMock.size()); //5
+
+    }
+
+    @Test
+    public void spying() {
+        //A spy by default retains behavior of the original class
+        ArrayList arrayListSpy = spy(ArrayList.class);
+        arrayListSpy.add("Test0");
+        System.out.println(arrayListSpy.get(0)); //Test0
+        System.out.println(arrayListSpy.size()); //1
+        arrayListSpy.add("Test");
+        arrayListSpy.add("Test2");
+        System.out.println(arrayListSpy.size()); //3
+        when(arrayListSpy.size()).thenReturn(5); //This replaces the original code in the spy
+        System.out.println(arrayListSpy.size()); //5
+
+        arrayListSpy.add("Test4");
+        System.out.println(arrayListSpy.size()); //5
+
+        verify(arrayListSpy).add("Test4");
     }
 
 }
