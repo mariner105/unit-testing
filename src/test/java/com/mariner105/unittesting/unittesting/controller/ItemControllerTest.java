@@ -50,11 +50,9 @@ class ItemControllerTest {
     @Test
     public void retrieveAllItems_basic() throws Exception {
         when(businessService.retrieveAllItems()).thenReturn(
-                Arrays.asList(new
-                                Item(2, "Item2", 10, 10),
-                        new
-                                Item(3, "Item3", 20, 20))
-        );
+                Arrays.asList(
+                        new Item(2, "Item2", 10, 10),
+                        new Item(3, "Item3", 20, 20)));
 
         //call "/dummy-item"
         RequestBuilder request = MockMvcRequestBuilders
