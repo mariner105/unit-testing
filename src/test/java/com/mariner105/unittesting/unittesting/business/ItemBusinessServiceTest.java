@@ -1,31 +1,41 @@
-package com.mariner105.unittesting.unittesting.controller;
+package com.mariner105.unittesting.unittesting.business;
 
+import com.mariner105.unittesting.unittesting.controller.ItemController;
+import com.mariner105.unittesting.unittesting.model.Item;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ItemController.class)
-class ItemControllerTest {
+class ItemBusinessServiceTest {
 
-    public static final String EXPECTED_JSON = "{\"id\":1,\"name\":\"Ball\",\"price\":10,\"quantity\":100}";
+    public static final String EXPECTED_JSON = "{id:2,name: Item2, price:10, quantity:10}";
 
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private ItemBusinessService businessService;
+
     @Test
-    public void dummyItem_basic() throws Exception {
-        //call "/dummy-item"
+    public void itemFromBusinessService() throws Exception {
+        when(businessService.retreiveHardCodedItem()).thenReturn(
+                new Item(2, "Item2", 10, 10));
+
+        //call "/item-from-business-service"
         RequestBuilder request = MockMvcRequestBuilders
-                .get("/dummy-item")
+                .get("/item-from-business-service")
                 .accept(MediaType.APPLICATION_JSON);
         mockMvc.perform(request);
 
